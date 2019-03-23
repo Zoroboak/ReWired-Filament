@@ -53,7 +53,7 @@ class MapFragment : Fragment() {
 
         checkPermissions()
     }
-
+/*
     override fun onStart() {
         super.onStart()
         mapView.onStart()
@@ -88,7 +88,7 @@ class MapFragment : Fragment() {
         mapView.onDestroy()
         super.onDestroy()
     }
-
+*/
     private fun checkPermissions() {
         if (ContextCompat.checkSelfPermission(
                 myContext,
