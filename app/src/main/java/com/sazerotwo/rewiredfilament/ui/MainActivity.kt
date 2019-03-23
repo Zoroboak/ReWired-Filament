@@ -37,8 +37,10 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_map -> {
                 val fragment = MapFragment()
                 fragment.myContext = this@MainActivity
-                fragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment, "fragment").commit()
+                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
             }
+            R.id.nav_reward -> supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,  RewardsFragment()).commit()
+            R.id.nav_login -> supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,  LoginFragment()).commit()
         }
 
         // close drawer when item is tapped

@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">Rewired Filament</string>
+    <string name="app_name">ReWired Filament</string>
     <string name="map">Mapa</string>
     <string name="reward">Recompensas</string>
     <string name="login">Login empresas</string>
+    <string name="reward_title">Las recompensas serían, por ejemplo:</string>
+    <string name="reward_first">Plástico PLA: por cada 5 kg, un rollo de filamento nuevo (1 kg)</string>
+    <string name="reward_second">Plástico PETG: por cada 5 kg, un rollo de filamento nuevo (1 kg)</string>
+    <string name="user_hint">Usuario</string>
+    <string name="passwd_hint">Contraseña</string>
+    <string name="make_login">Login</string>
 </resources>
