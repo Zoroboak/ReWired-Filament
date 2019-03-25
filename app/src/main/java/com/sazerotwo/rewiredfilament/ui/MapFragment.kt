@@ -1,15 +1,12 @@
 package com.sazerotwo.rewiredfilament.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,14 +30,13 @@ import com.sazerotwo.rewiredfilament.network.MapPointProvider
 
 class MapFragment : Fragment() {
 
-    public lateinit var myContext: Context
     private lateinit var mapView: MapView
     private lateinit var map: MapboxMap
     private val LOCATION_REQUEST_CODE = 1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Mapbox.getInstance(
-            myContext,
+            context!!,
             getString(R.string.map_token)
         )
 
@@ -48,58 +44,17 @@ class MapFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mapView = view!!.findViewById(R.id.mapView)
+        mapView = view.findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
 
         checkPermissions()
     }
-/*
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onStop() {
-        mapView.onStop()
-        super.onStop()
-    }
-
-    override fun onLowMemory() {
-        mapView.onLowMemory()
-        super.onLowMemory()
-    }
-
-    override fun onDestroy() {
-        mapView.onDestroy()
-        super.onDestroy()
-    }
-*/
     private fun checkPermissions() {
-        if (ContextCompat.checkSelfPermission(
-                myContext,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-                activity as AppCompatActivity,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_REQUEST_CODE
-            )
+            requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
         } else {
             loadMap()
         }
@@ -116,9 +71,9 @@ class MapFragment : Fragment() {
     }
 
     private fun loadMap() {
-        mapView.getMapAsync { mapboxMap ->
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-                map = mapboxMap
+        mapView.getMapAsync { map ->
+            map.setStyle(Style.MAPBOX_STREETS) {
+                this.map = map
                 enableLocationComponent()
                 loadMarkers()
             }
@@ -127,19 +82,10 @@ class MapFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun enableLocationComponent() {
-        // Get an instance of the component
         val locationComponent = map.locationComponent
-
-        // Activate with options
-        locationComponent.activateLocationComponent(myContext, map.style!!)
-
-        // Enable to make component visible
+        locationComponent.activateLocationComponent(context!!, map.style!!)
         locationComponent.isLocationComponentEnabled = true
-
-        // Set the component's camera mode
         locationComponent.cameraMode = CameraMode.TRACKING
-
-        // Set the component's render mode
         locationComponent.renderMode = RenderMode.COMPASS
     }
 
@@ -196,7 +142,7 @@ class MapFragment : Fragment() {
     }
 
     private fun showAlert(msg: String) {
-        val alertBuilder = AlertDialog.Builder(myContext)
+        val alertBuilder = AlertDialog.Builder(context!!)
             .setTitle("OJO")
             .setMessage(msg)
             .setPositiveButton(

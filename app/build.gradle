@@ -19,6 +19,7 @@ android {
             resValue "string", "map_token", "pk.eyJ1Ijoic2FuY2hlemVnaWRvIiwiYSI6ImNqdGthcTIzajA5aWE0YXEzaXE0aWxteDgifQ.kSRTDPSqTZv3jGahAnF66w"
         }
         release {
+            resValue "string", "map_token", "pk.eyJ1Ijoic2FuY2hlemVnaWRvIiwiYSI6ImNqdGthcTIzajA5aWE0YXEzaXE0aWxteDgifQ.kSRTDPSqTZv3jGahAnF66w"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

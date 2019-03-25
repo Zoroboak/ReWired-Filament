@@ -30,22 +30,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigationItemSelected(menuItem: MenuItem): Boolean {
-        // set item as selected to persist highlight
         menuItem.isChecked = true
 
-        when (menuItem.itemId) {
-            R.id.nav_map -> {
-                val fragment = MapFragment()
-                fragment.myContext = this@MainActivity
-                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
-            }
-            R.id.nav_reward -> supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,  RewardsFragment()).commit()
-            R.id.nav_login -> supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,  LoginFragment()).commit()
+        val fragment = when (menuItem.itemId) {
+            R.id.nav_map -> MapFragment()
+            R.id.nav_reward -> RewardsFragment()
+            R.id.nav_login -> LoginFragment()
+            else -> throw IllegalArgumentException()
         }
 
-        // close drawer when item is tapped
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
         drawerLayout.closeDrawers()
-
         return true
     }
 
